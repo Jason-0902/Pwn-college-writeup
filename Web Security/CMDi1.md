@@ -69,6 +69,15 @@ This gets interpreted by the shell as:
 ls -l /flag; cat /flag
 ```
 
+### Why we need %20?
+
+`%20` is the URL-encoded form of a space character.
+
+In URLs, spaces and certain other characters are not allowed directly, so they must be encoded using percent-encoding (URL encoding).
+
+`%20` means a space in URL encoding. It's crucial when injecting shell commands via URLs because the shell depends on whitespace to separate commands and arguments.
+
 ## Conclusion
+
 
 This was a classic command injection vulnerability. By injecting shell syntax into a query parameter, we chained an unintended cat /flag command, which was executed due to unsafe use of shell=True. Because the server ran with elevated privileges, this allowed reading and leaking of a sensitive file.
