@@ -60,7 +60,7 @@ The server is run with elevated privileges using exec-suid, meaning it can acces
 
 By injecting ; cat /flag into the directory parameter, we can execute an unintended command:
 
-```
+```SHELL
 curl "http://challenge.localhost:80/resource?directory=/flag;%20cat%20/flag"
 ```
 
@@ -82,4 +82,5 @@ In URLs, spaces and certain other characters are not allowed directly, so they m
 
 
 This was a classic command injection vulnerability. By injecting shell syntax into a query parameter, we chained an unintended cat /flag command, which was executed due to unsafe use of shell=True. Because the server ran with elevated privileges, this allowed reading and leaking of a sensitive file.
+
 
