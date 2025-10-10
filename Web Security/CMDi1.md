@@ -66,7 +66,7 @@ curl "http://challenge.localhost:80/resource?directory=/flag;%20cat%20/flag"
 
 This gets interpreted by the shell as:
 
-```
+```SHELL
 ls -l /flag; cat /flag
 ```
 
@@ -82,5 +82,6 @@ In URLs, spaces and certain other characters are not allowed directly, so they m
 
 
 This was a classic command injection vulnerability. By injecting shell syntax into a query parameter, we chained an unintended cat /flag command, which was executed due to unsafe use of shell=True. Because the server ran with elevated privileges, this allowed reading and leaking of a sensitive file.
+
 
 
