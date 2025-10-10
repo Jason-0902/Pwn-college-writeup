@@ -1,2 +1,4 @@
 # Pwn-college-writeup
-This is the pwn college wirteup from web to binary exploitation.
+
+A collection of writeups for pwn-college challenges — from web exploitation to binary exploitation.
+This repo organizes challenge writeups, exploitation notes, and supporting scripts/tools to help you learn and reproduce exploit techniques.
