@@ -1,4 +1,4 @@
-# 🍪 Challenge: Authentication Bypass 2
+# Challenge: Authentication Bypass 2
 
 ---
 
@@ -52,3 +52,4 @@ curl --cookie "session_user=admin" http://challenge.localhost:80
 | Cookie Handling      | Client-side trust issue             | The app trusts the `session_user` cookie value sent by the client |
 | Authentication Logic | Missing verification                | No session validation or signature                                |
 | Developer Assumption | “Only the app will set this cookie” | Attackers can forge HTTP headers and cookies manually             |
+
