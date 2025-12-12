@@ -5,14 +5,12 @@ This repo organizes challenge writeups, exploitation notes, and supporting scrip
 
 ## Purpose
 
-This repository is created **solely for learning and documentation purposes**.
+This repository is maintained as a personal learning log.
 
-It serves as a personal record of my study process while working through
-pwn.college challenges, including my understanding of exploitation techniques,
-problem-solving approaches, and notes taken during practice.
+It is not intended to provide official solutions or bypass the learning
+objectives of pwn.college, but rather to record my own understanding,
+experiments, and technical notes during the learning process.
 
-All writeups and scripts reflect my own learning journey and are intended to
-help me review concepts and track progress over time.
 
 
 ## License
