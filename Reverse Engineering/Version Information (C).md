@@ -30,10 +30,10 @@ The program reads 6 bytes from input, starting at `rsp+2`.
 ### Step 2: Magic Number Check
 
 ```asm
-cmpb $0x63, 0x2(%rsp)   ; 'c'
-cmpb $0x6d, 0x3(%rsp)   ; 'm'
-cmpb $0x36, 0x4(%rsp)   ; '6'
-cmpb $0x65, 0x5(%rsp)   ; 'e'
+cmpb $0x63, 0x2(%rsp) 
+cmpb $0x6d, 0x3(%rsp) 
+cmpb $0x36, 0x4(%rsp) 
+cmpb $0x65, 0x5(%rsp) 
 ```
 
 This verifies the 4-byte magic number is:
@@ -80,5 +80,6 @@ Run it:
 python3 cimg.py
 /challenge/cimg flag.cimg
 ```
+
 
 You'll get the flag
